@@ -1,0 +1,649 @@
+<div class="blog-single page-layout">
+	<div class="layout-fixed">
+		<article id="post-378" class="post-378 post type-post status-publish format-standard has-post-thumbnail hentry category-fun category-think tag-bash tag-dropbox tag-git tag-ifttt tag-php tag-raspberry-pi">
+			<header class="entry-header">
+				
+				<h1 class="entry-title">Git Switch</h1>
+				
+				
+				<div class="entry-meta">
+					<span class="entry-date">
+						<time class="entry-date" datetime="July 24, 2015">July 24, 2015</time>
+					</span>
+					
+					<span class="comment-link">
+						<a href="http://robbiedelfs.codes/gitswitch/#comments">2 Comments</a>										</span>
+						
+						<span class="cat-links">
+							<a href="http://robbiedelfs.codes/category/fun/" rel="category tag">Fun</a> <a href="http://robbiedelfs.codes/category/think/" rel="category tag">Think</a>										</span>
+							
+							<span class="edit-link"><a class="post-edit-link" href="http://robbiedelfs.codes/wp-admin/post.php?post=378&amp;action=edit">Edit</a></span>									</div>
+						</header>
+						
+						
+						<div class="featured-image">
+						<img width="1000" height="1135" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4390-e1478850728952-1000x1135.jpg" class="attachment-pixelwars__image_size_1 size-pixelwars__image_size_1 wp-post-image" alt="" srcset="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4390-e1478850728952-1000x1135.jpg 1000w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4390-e1478850728952-264x300.jpg 264w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4390-e1478850728952-768x871.jpg 768w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4390-e1478850728952-903x1024.jpg 903w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4390-e1478850728952-500x567.jpg 500w" sizes="(max-width: 1000px) 100vw, 1000px">											</div>
+						
+						
+						<div class="entry-content">
+							<p>Do you ever occasionally check if you have acquired superpowers due to some kind of causality dilemma that you can not make dialectical heads-or-tails of without contemplating the linear cause-and-effect of the origins of your existence, and thus try to move things with your mind or shoot spaghetti out of your hands when no one is around just for the heck of it?</p>
+							<p>Well, I do.</p>
+							<p>Maybe it was a gas station burrito or my excessive caffeine&nbsp;consumption that&nbsp;tricked my DNA into developing a random mutation based on the perceived radioactivity brewing inside of me, so it’s always worth a shot.</p>
+							<p>Either way, my latest foray into telekinesis happened out of sheer laziness.&nbsp;One night I found myself repeating the unholy trinity of git commands:</p>
+							<ul>
+								<li>git add .</li>
+								<li>git commit -a -m “&lt;message&gt;”</li>
+								<li>git push</li>
+							</ul>
+							<p>I stressed and strained to push my code with my mind and in a moment of desperation, even attempted to invoke&nbsp;the spirit of Linus Torvalds, but to no avail.</p>
+							<p>These commands aren’t bad or broken by any means, they are just tedious to repetitiously type. While I have created an alias for said&nbsp;commands in my .bash_profile, I often like to use the native commands&nbsp;so that I don’t begin relying on an idiomatic solution. It was a Saturday, my RPi was gathering dust, and I love pushing buttons, so I thought I would create a button that adds, commits, and pushes my code for me.&nbsp;Yes, “abstraction”&nbsp;<em>is&nbsp;</em>my middle name.</p>
+							<p>Here is how I chose to approach it…</p>
+							<h2>Materials<a href="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4375-e1478849940216.jpg" target="_blank"><img class="rounded alignright wp-image-675 size-medium" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4375-e1478849940216-225x300.jpg" alt="img_4375" width="225" height="300" srcset="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4375-e1478849940216-225x300.jpg 225w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4375-e1478849940216-768x1024.jpg 768w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4375-e1478849940216-1000x1333.jpg 1000w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4375-e1478849940216-500x667.jpg 500w" sizes="(max-width: 225px) 100vw, 225px"></a></h2>
+							<ul>
+								<li>Raspberry Pi</li>
+								<li>Breadboard</li>
+								<li>Jumper Wires (with Ribbon Cable since I only had male to male)</li>
+								<li>Tactile push switch</li>
+								<li>Blank SD card loaded with NOOBS</li>
+								<li>WiFi dongle or ethernet cable</li>
+								<li>HDMI&nbsp;cable to connect to external display</li>
+							</ul>
+							<p>&nbsp;</p>
+							<p>Once Raspbian was installed and booted, I configured my&nbsp;keyboard and WiFi and did the following from&nbsp;LXTerminal…</p>
+							<h2>Installed and configured SSMTP<img class="rounded alignright wp-image-677 size-medium" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4374-e1478851082578-300x225.jpg" alt="img_4374" width="300" height="225" srcset="http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4374-e1478851082578-300x225.jpg 300w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4374-e1478851082578-768x576.jpg 768w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4374-e1478851082578-1024x768.jpg 1024w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4374-e1478851082578-1000x750.jpg 1000w, http://robbiedelfs.codes/wp-content/uploads/2015/07/IMG_4374-e1478851082578-500x375.jpg 500w" sizes="(max-width: 300px) 100vw, 300px"></h2>
+							<h4 style="display: inline !important;">Made sure my repositories were&nbsp;up to date</h4>
+							<ul>
+								<li>apt-get update</li>
+							</ul>
+							<h4 style="display: inline !important;">Installed SSMTP and mail utilities</h4>
+							<ul>
+								<li>apt-get install ssmtp</li>
+								<li>apt-get install mailutils</li>
+							</ul>
+							<h4>Edited the SSMTP configuration file</h4>
+							<ul>
+								<li>nano /etc/ssmtp/ssmtp.conf</li>
+								<li>edited the following information…</li>
+							</ul>
+							<p><script src="https://gist.github.com/2d9992ddc2722176ac74542a9ddae147.js"></script><link rel="stylesheet" href="https://assets-cdn.github.com/assets/gist-embed-d7829e4cb0b09afb29b517c0ae667eb603d664f6a1384f29f8bb4aace3a8314f.css"></p><div id="gist41725321" class="gist">
+							<div class="gist-file">
+								<div class="gist-data">
+									<div class="js-gist-file-update-container js-task-list-container file-box">
+										<div id="file-ssmtp-conf" class="file">
+											
+											<div itemprop="text" class="blob-wrapper data type-text">
+												<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+													<tbody><tr>
+														<td id="file-ssmtp-conf-L1" class="blob-num js-line-number" data-line-number="1"></td>
+														<td id="file-ssmtp-conf-LC1" class="blob-code blob-code-inner js-file-line">root=postmaster</td>
+													</tr>
+													<tr>
+														<td id="file-ssmtp-conf-L2" class="blob-num js-line-number" data-line-number="2"></td>
+														<td id="file-ssmtp-conf-LC2" class="blob-code blob-code-inner js-file-line">mailhub=smtp.gmail.com:587</td>
+													</tr>
+													<tr>
+														<td id="file-ssmtp-conf-L3" class="blob-num js-line-number" data-line-number="3"></td>
+														<td id="file-ssmtp-conf-LC3" class="blob-code blob-code-inner js-file-line">hostname=raspberrypi</td>
+													</tr>
+													<tr>
+														<td id="file-ssmtp-conf-L4" class="blob-num js-line-number" data-line-number="4"></td>
+														<td id="file-ssmtp-conf-LC4" class="blob-code blob-code-inner js-file-line">AuthUser=&lt;GmailAddress&gt;</td>
+													</tr>
+													<tr>
+														<td id="file-ssmtp-conf-L5" class="blob-num js-line-number" data-line-number="5"></td>
+														<td id="file-ssmtp-conf-LC5" class="blob-code blob-code-inner js-file-line">AuthPass=&lt;GmailPassword&gt;</td>
+													</tr>
+													<tr>
+														<td id="file-ssmtp-conf-L6" class="blob-num js-line-number" data-line-number="6"></td>
+														<td id="file-ssmtp-conf-LC6" class="blob-code blob-code-inner js-file-line">UseSTARTTLS=YES</td>
+													</tr>
+												</tbody></table>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								<div class="gist-meta">
+									<a href="https://gist.github.com/Robbatron/2d9992ddc2722176ac74542a9ddae147/raw/4df7fe086214984f90fcfa6906ec4431ec2b9f93/ssmtp.conf" style="float:right">view raw</a>
+									<a href="https://gist.github.com/Robbatron/2d9992ddc2722176ac74542a9ddae147#file-ssmtp-conf">ssmtp.conf</a>
+									hosted with ❤ by <a href="https://github.com">GitHub</a>
+								</div>
+							</div>
+						</div>
+						<p></p>
+						<h4>Then I edited the SSMTP aliases file to include the email address I wanted to send emails from</h4>
+						<ul>
+							<li>nano /etc/ssmtp/revaliases</li>
+							<li>the format is&nbsp;<em>local_account:outgoing_address:mailhub[:port]</em></li>
+							<li>pi@raspberrypi:smtp.gmail.com:587 will work in most cases</li>
+						</ul>
+						<p><script src="https://gist.github.com/b69a71cbf65bcde8f26c1d06c7ae7041.js"></script><link rel="stylesheet" href="https://assets-cdn.github.com/assets/gist-embed-d7829e4cb0b09afb29b517c0ae667eb603d664f6a1384f29f8bb4aace3a8314f.css"></p><div id="gist41725392" class="gist">
+						<div class="gist-file">
+							<div class="gist-data">
+								<div class="js-gist-file-update-container js-task-list-container file-box">
+									<div id="file-revaliases" class="file">
+										
+										<div itemprop="text" class="blob-wrapper data type-text">
+											<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+												<tbody><tr>
+													<td id="file-revaliases-L1" class="blob-num js-line-number" data-line-number="1"></td>
+													<td id="file-revaliases-LC1" class="blob-code blob-code-inner js-file-line"># sSMTP aliases</td>
+												</tr>
+												<tr>
+													<td id="file-revaliases-L2" class="blob-num js-line-number" data-line-number="2"></td>
+													<td id="file-revaliases-LC2" class="blob-code blob-code-inner js-file-line">#</td>
+												</tr>
+												<tr>
+													<td id="file-revaliases-L3" class="blob-num js-line-number" data-line-number="3"></td>
+													<td id="file-revaliases-LC3" class="blob-code blob-code-inner js-file-line"># Format: local_account:outgoing_address:mailhub</td>
+												</tr>
+												<tr>
+													<td id="file-revaliases-L4" class="blob-num js-line-number" data-line-number="4"></td>
+													<td id="file-revaliases-LC4" class="blob-code blob-code-inner js-file-line">#</td>
+												</tr>
+												<tr>
+													<td id="file-revaliases-L5" class="blob-num js-line-number" data-line-number="5"></td>
+													<td id="file-revaliases-LC5" class="blob-code blob-code-inner js-file-line"># Example: root:your_login@your.domain:mailhub.your.domain[:port]</td>
+												</tr>
+												<tr>
+													<td id="file-revaliases-L6" class="blob-num js-line-number" data-line-number="6"></td>
+													<td id="file-revaliases-LC6" class="blob-code blob-code-inner js-file-line"># where [:port] is an optional port number that defaults to 25.</td>
+												</tr>
+												<tr>
+													<td id="file-revaliases-L7" class="blob-num js-line-number" data-line-number="7"></td>
+													<td id="file-revaliases-LC7" class="blob-code blob-code-inner js-file-line">pi@raspberrypi:smtp.gmail.com:587</td>
+												</tr>
+											</tbody></table>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="gist-meta">
+								<a href="https://gist.github.com/Robbatron/b69a71cbf65bcde8f26c1d06c7ae7041/raw/768bb2c7e889c8879fb7789cfcd036797d0a2bad/revaliases" style="float:right">view raw</a>
+								<a href="https://gist.github.com/Robbatron/b69a71cbf65bcde8f26c1d06c7ae7041#file-revaliases">revaliases</a>
+								hosted with ❤ by <a href="https://github.com">GitHub</a>
+							</div>
+						</div>
+					</div>
+					<p></p>
+					<h4>Set the permissions of the SSMTP configuration file</h4>
+					<ul>
+						<li>chmod 774 /etc/ssmtp/ssmtp.conf</li>
+					</ul>
+					<h2>Set-up PHP and wrote script to send email</h2>
+					<h4>Edited the PHP ini&nbsp;file</h4>
+					<ul>
+						<li>nano /etc/php5/apache2/php.ini</li>
+						<li>changed&nbsp;the line which contained&nbsp;<em>sendmail_path</em> (find function is F6 in nano) to&nbsp;<em>sendmail_path = /usr/sbin/sendmail -t -i</em></li>
+					</ul>
+					<h4>Tested if PHP was&nbsp;configured to send email</h4>
+					<ul>
+						<li>created a file named mailtest.php in /home/pi</li>
+						<li>to monitor all code changes, I initialized a repository in the root folder where I keep all my other git repositories</li>
+					</ul>
+					<p><script src="https://gist.github.com/c5f1049d6284396995fadb74b5bc8d0a.js"></script><link rel="stylesheet" href="https://assets-cdn.github.com/assets/gist-embed-d7829e4cb0b09afb29b517c0ae667eb603d664f6a1384f29f8bb4aace3a8314f.css"></p><div id="gist41725435" class="gist">
+					<div class="gist-file">
+						<div class="gist-data">
+							<div class="js-gist-file-update-container js-task-list-container file-box">
+								<div id="file-mailtest-php" class="file">
+									
+									<div itemprop="text" class="blob-wrapper data type-php">
+										<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+											<tbody><tr>
+												<td id="file-mailtest-php-L1" class="blob-num js-line-number" data-line-number="1"></td>
+												<td id="file-mailtest-php-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-pse">&lt;?php</span><span class="pl-s1"></span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L2" class="blob-num js-line-number" data-line-number="2"></td>
+												<td id="file-mailtest-php-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$to</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>trigger@recipe.ifttt.com<span class="pl-pds">"</span></span>;</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L3" class="blob-num js-line-number" data-line-number="3"></td>
+												<td id="file-mailtest-php-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$subject</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Git Push<span class="pl-pds">"</span></span>;</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L4" class="blob-num js-line-number" data-line-number="4"></td>
+												<td id="file-mailtest-php-LC4" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$message</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>cd &lt;Path to local repositories folder&gt; <span class="pl-cce">\n</span> git commit -am 'add/commit/push from rpi' &amp;&amp; git push<span class="pl-pds">"</span></span>;</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L5" class="blob-num js-line-number" data-line-number="5"></td>
+												<td id="file-mailtest-php-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$from</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&lt;GmailAddress&gt;<span class="pl-pds">"</span></span>;</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L6" class="blob-num js-line-number" data-line-number="6"></td>
+												<td id="file-mailtest-php-LC6" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-smi">$headers</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>From:<span class="pl-pds">"</span></span><span class="pl-k">.</span><span class="pl-smi">$from</span>;</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L7" class="blob-num js-line-number" data-line-number="7"></td>
+												<td id="file-mailtest-php-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-c1">mail</span>(<span class="pl-smi">$to</span>,<span class="pl-smi">$subject</span>,<span class="pl-smi">$message</span>,<span class="pl-smi">$headers</span>);</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L8" class="blob-num js-line-number" data-line-number="8"></td>
+												<td id="file-mailtest-php-LC8" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>Mail Sent.<span class="pl-cce">\n</span><span class="pl-pds">"</span></span>;</span></td>
+											</tr>
+											<tr>
+												<td id="file-mailtest-php-L9" class="blob-num js-line-number" data-line-number="9"></td>
+												<td id="file-mailtest-php-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-s1"></span><span class="pl-pse"><span class="pl-s1">?</span>&gt;</span></td>
+											</tr>
+										</tbody></table>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+						<div class="gist-meta">
+							<a href="https://gist.github.com/Robbatron/c5f1049d6284396995fadb74b5bc8d0a/raw/9e7980c67c5401bfa1ac1bf40062b7a5e8df980c/mailtest.php" style="float:right">view raw</a>
+							<a href="https://gist.github.com/Robbatron/c5f1049d6284396995fadb74b5bc8d0a#file-mailtest-php">mailtest.php</a>
+							hosted with ❤ by <a href="https://github.com">GitHub</a>
+						</div>
+					</div>
+				</div>
+				<p></p>
+				<ul>
+					<li>you may notice that the email is sending to <em>trigger@recipe.ifttt.com</em>. I will touch on that in a moment</li>
+				</ul>
+				<h4>Tested the script by calling it from LXTerminal</h4>
+				<ul>
+					<li>PHP mailtest.php</li>
+				</ul>
+				<ul>
+					<li>to get this to work, I had to log into my&nbsp;google email account and follow the steps outlined&nbsp;<a href="https://www.google.com/settings/security/lesssecureapps">HERE</a>&nbsp;and <a href="https://g.co/allowaccess">HERE</a></li>
+				</ul>
+				<h2>Created the push switch<br>
+				<a href="http://robbiedelfs.codes/wp-content/uploads/2015/07/gpiowiring.png"><img class="aligncenter wp-image-645 size-medium" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/gpiowiring-300x233.png" alt="gpiowiring" width="300" height="233" srcset="http://robbiedelfs.codes/wp-content/uploads/2015/07/gpiowiring-300x233.png 300w, http://robbiedelfs.codes/wp-content/uploads/2015/07/gpiowiring-768x596.png 768w, http://robbiedelfs.codes/wp-content/uploads/2015/07/gpiowiring-500x388.png 500w, http://robbiedelfs.codes/wp-content/uploads/2015/07/gpiowiring.png 900w" sizes="(max-width: 300px) 100vw, 300px"></a></h2>
+				<ul>
+					<li>this is the very simple example from the book “Raspberry Pi Cookbook” which simply connects pin 18 to GND as an input</li>
+					<li>by connecting a switch to a GPIO pin, we can write a Python script that uses the RPi.GPIO library to detect button presses</li>
+				</ul>
+				<p><script src="https://gist.github.com/6d4dd35d61a99f3f536e981bb1665486.js"></script><link rel="stylesheet" href="https://assets-cdn.github.com/assets/gist-embed-d7829e4cb0b09afb29b517c0ae667eb603d664f6a1384f29f8bb4aace3a8314f.css"></p><div id="gist41790451" class="gist">
+				<div class="gist-file">
+					<div class="gist-data">
+						<div class="js-gist-file-update-container js-task-list-container file-box">
+							<div id="file-switch-py" class="file">
+								
+								<div itemprop="text" class="blob-wrapper data type-python">
+									<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+										<tbody><tr>
+											<td id="file-switch-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+											<td id="file-switch-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> RPi.<span class="pl-c1">GPIO</span> <span class="pl-k">as</span> <span class="pl-c1">GPIO</span></td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+											<td id="file-switch-py-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> time</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+											<td id="file-switch-py-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-k">import</span> subprocess</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+											<td id="file-switch-py-LC4" class="blob-code blob-code-inner js-file-line">
+											</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+											<td id="file-switch-py-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">GPIO</span>.setmode(<span class="pl-c1">GPIO</span>.<span class="pl-c1">BCM</span>)</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+											<td id="file-switch-py-LC6" class="blob-code blob-code-inner js-file-line">
+											</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+											<td id="file-switch-py-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">GPIO</span>.setup(<span class="pl-c1">18</span>, <span class="pl-c1">GPIO</span>.<span class="pl-c1">IN</span>, <span class="pl-v">pull_up_down</span><span class="pl-k">=</span><span class="pl-c1">GPIO</span>.<span class="pl-c1">PUD_UP</span>)</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+											<td id="file-switch-py-LC8" class="blob-code blob-code-inner js-file-line">
+											</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+											<td id="file-switch-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-k">while</span> <span class="pl-c1">True</span>:</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+											<td id="file-switch-py-LC10" class="blob-code blob-code-inner js-file-line">    input_state <span class="pl-k">=</span> <span class="pl-c1">GPIO</span>.input(<span class="pl-c1">18</span>)</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+											<td id="file-switch-py-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">if</span> input_state <span class="pl-k">==</span> <span class="pl-c1">False</span>:</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+											<td id="file-switch-py-LC12" class="blob-code blob-code-inner js-file-line">	<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">"</span>Subprocess called.<span class="pl-pds">"</span></span>)</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+											<td id="file-switch-py-LC13" class="blob-code blob-code-inner js-file-line">	subprocess.call([<span class="pl-s"><span class="pl-pds">"</span>php<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>mailtest.php<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>shell=True<span class="pl-pds">"</span></span>])</td>
+										</tr>
+										<tr>
+											<td id="file-switch-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+											<td id="file-switch-py-LC14" class="blob-code blob-code-inner js-file-line">        time.sleep(<span class="pl-c1">0.2</span>)</td>
+										</tr>
+									</tbody></table>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="gist-meta">
+						<a href="https://gist.github.com/Robbatron/6d4dd35d61a99f3f536e981bb1665486/raw/e2d92845d1cca647db0a715dbbf735b31b8afda8/switch.py" style="float:right">view raw</a>
+						<a href="https://gist.github.com/Robbatron/6d4dd35d61a99f3f536e981bb1665486#file-switch-py">switch.py</a>
+						hosted with ❤ by <a href="https://github.com">GitHub</a>
+					</div>
+				</div>
+			</div>
+			<p></p>
+			<h4>Once these steps were completed,&nbsp;I switched over to my Mac for the remainder of the setup…</h4>
+			<h2>Use an IFTTT recipe to create a text file from the delivered email and automagically put it in a Dropbox folder</h2>
+			<ul>
+				<li>IFTTT is a very awesome site that lets you create conditional statements which are triggered based on changes to various web services</li>
+				<li>you can check it out at <a href="https://ifttt.com">HERE</a>&nbsp;(and I highly recommend you do so)</li>
+			</ul>
+			<h4>This is where the code gets fun! The shell&nbsp;script below runs the text file that we sent to Dropbox earlier as commands in the OS X terminal.</h4>
+			<p><script src="https://gist.github.com/c4d59c4faa53181c83688477a31bb778.js"></script><link rel="stylesheet" href="https://assets-cdn.github.com/assets/gist-embed-d7829e4cb0b09afb29b517c0ae667eb603d664f6a1384f29f8bb4aace3a8314f.css"></p><div id="gist41790963" class="gist">
+			<div class="gist-file">
+				<div class="gist-data">
+					<div class="js-gist-file-update-container js-task-list-container file-box">
+						<div id="file-gitswitch-sh" class="file">
+							
+							<div itemprop="text" class="blob-wrapper data type-shell">
+								<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+									<tbody><tr>
+										<td id="file-gitswitch-sh-L1" class="blob-num js-line-number" data-line-number="1"></td>
+										<td id="file-gitswitch-sh-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#!</span>/bin/bash</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L2" class="blob-num js-line-number" data-line-number="2"></td>
+										<td id="file-gitswitch-sh-LC2" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Check location of the script</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L3" class="blob-num js-line-number" data-line-number="3"></td>
+										<td id="file-gitswitch-sh-LC3" class="blob-code blob-code-inner js-file-line">script_path=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>greadlink f <span class="pl-smi">${BASH_SOURCE[0]}</span><span class="pl-pds">)</span></span><span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L4" class="blob-num js-line-number" data-line-number="4"></td>
+										<td id="file-gitswitch-sh-LC4" class="blob-code blob-code-inner js-file-line">gs_home=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-s"><span class="pl-pds">$(</span>dirname <span class="pl-smi">$script_path</span><span class="pl-pds">)</span></span><span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L5" class="blob-num js-line-number" data-line-number="5"></td>
+										<td id="file-gitswitch-sh-LC5" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">cd</span> <span class="pl-smi">$gs_home</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L6" class="blob-num js-line-number" data-line-number="6"></td>
+										<td id="file-gitswitch-sh-LC6" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L7" class="blob-num js-line-number" data-line-number="7"></td>
+										<td id="file-gitswitch-sh-LC7" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Check if there is any configuration file (gitswitch.cfg)</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L8" class="blob-num js-line-number" data-line-number="8"></td>
+										<td id="file-gitswitch-sh-LC8" class="blob-code blob-code-inner js-file-line">cfg=<span class="pl-s"><span class="pl-pds">`</span>ls <span class="pl-c1">.</span> <span class="pl-k">|</span> grep gitswitch.cfg <span class="pl-k">|</span> wc -l<span class="pl-pds">`</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L9" class="blob-num js-line-number" data-line-number="9"></td>
+										<td id="file-gitswitch-sh-LC9" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L10" class="blob-num js-line-number" data-line-number="10"></td>
+										<td id="file-gitswitch-sh-LC10" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> If NOT, then create new configuration file</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L11" class="blob-num js-line-number" data-line-number="11"></td>
+										<td id="file-gitswitch-sh-LC11" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> [[ <span class="pl-smi">$cfg</span> <span class="pl-k">-eq</span> 0 ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L12" class="blob-num js-line-number" data-line-number="12"></td>
+										<td id="file-gitswitch-sh-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>You started GitSwitch for the first time.<span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L13" class="blob-num js-line-number" data-line-number="13"></td>
+										<td id="file-gitswitch-sh-LC13" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>Please answer few questions, which will be used for creation of config file.<span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L14" class="blob-num js-line-number" data-line-number="14"></td>
+										<td id="file-gitswitch-sh-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L15" class="blob-num js-line-number" data-line-number="15"></td>
+										<td id="file-gitswitch-sh-LC15" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">while</span> (true)<span class="pl-k">;</span> <span class="pl-k">do</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L16" class="blob-num js-line-number" data-line-number="16"></td>
+										<td id="file-gitswitch-sh-LC16" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> -n <span class="pl-s"><span class="pl-pds">"</span>What is name of Dropbox folder, for GitSwitch commands? (i.e. GS_Commands): <span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L17" class="blob-num js-line-number" data-line-number="17"></td>
+										<td id="file-gitswitch-sh-LC17" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">read</span> gs_dboxstorage</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L18" class="blob-num js-line-number" data-line-number="18"></td>
+										<td id="file-gitswitch-sh-LC18" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L19" class="blob-num js-line-number" data-line-number="19"></td>
+										<td id="file-gitswitch-sh-LC19" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L20" class="blob-num js-line-number" data-line-number="20"></td>
+										<td id="file-gitswitch-sh-LC20" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>Please check if the information below is correct.<span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L21" class="blob-num js-line-number" data-line-number="21"></td>
+										<td id="file-gitswitch-sh-LC21" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>***************************************************<span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L22" class="blob-num js-line-number" data-line-number="22"></td>
+										<td id="file-gitswitch-sh-LC22" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>Name of Dropbox folder: <span class="pl-smi">$gs_dboxstorage</span><span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L23" class="blob-num js-line-number" data-line-number="23"></td>
+										<td id="file-gitswitch-sh-LC23" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L24" class="blob-num js-line-number" data-line-number="24"></td>
+										<td id="file-gitswitch-sh-LC24" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">echo</span> -n <span class="pl-s"><span class="pl-pds">"</span>Are these values correct? [y/n]: <span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L25" class="blob-num js-line-number" data-line-number="25"></td>
+										<td id="file-gitswitch-sh-LC25" class="blob-code blob-code-inner js-file-line">            <span class="pl-c1">read</span> answer</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L26" class="blob-num js-line-number" data-line-number="26"></td>
+										<td id="file-gitswitch-sh-LC26" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">if</span> [[ <span class="pl-smi">$answer</span> <span class="pl-k">==</span> y ]]<span class="pl-k">;</span> <span class="pl-k">then</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L27" class="blob-num js-line-number" data-line-number="27"></td>
+										<td id="file-gitswitch-sh-LC27" class="blob-code blob-code-inner js-file-line">                        <span class="pl-c1">break</span><span class="pl-k">;</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L28" class="blob-num js-line-number" data-line-number="28"></td>
+										<td id="file-gitswitch-sh-LC28" class="blob-code blob-code-inner js-file-line">                <span class="pl-k">fi</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L29" class="blob-num js-line-number" data-line-number="29"></td>
+										<td id="file-gitswitch-sh-LC29" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">done</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L30" class="blob-num js-line-number" data-line-number="30"></td>
+										<td id="file-gitswitch-sh-LC30" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L31" class="blob-num js-line-number" data-line-number="31"></td>
+										<td id="file-gitswitch-sh-LC31" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>Enjoy!<span class="pl-pds">"</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L32" class="blob-num js-line-number" data-line-number="32"></td>
+										<td id="file-gitswitch-sh-LC32" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L33" class="blob-num js-line-number" data-line-number="33"></td>
+										<td id="file-gitswitch-sh-LC33" class="blob-code blob-code-inner js-file-line">    mkdir <span class="pl-smi">$gs_dboxstorage</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L34" class="blob-num js-line-number" data-line-number="34"></td>
+										<td id="file-gitswitch-sh-LC34" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>gs_dboxstorage=<span class="pl-smi">$gs_dboxstorage</span><span class="pl-pds">"</span></span> <span class="pl-k">&gt;</span> gitswitch.cfg</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L35" class="blob-num js-line-number" data-line-number="35"></td>
+										<td id="file-gitswitch-sh-LC35" class="blob-code blob-code-inner js-file-line">    <span class="pl-c1">echo</span> <span class="pl-s"><span class="pl-pds">"</span>gs_storage=<span class="pl-smi">$gs_home</span>/<span class="pl-smi">$gs_dboxstorage</span><span class="pl-pds">"</span></span> <span class="pl-k">&gt;&gt;</span> gitswitch.cfg</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L36" class="blob-num js-line-number" data-line-number="36"></td>
+										<td id="file-gitswitch-sh-LC36" class="blob-code blob-code-inner js-file-line"><span class="pl-k">fi</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L37" class="blob-num js-line-number" data-line-number="37"></td>
+										<td id="file-gitswitch-sh-LC37" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L38" class="blob-num js-line-number" data-line-number="38"></td>
+										<td id="file-gitswitch-sh-LC38" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Load configuration file</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L39" class="blob-num js-line-number" data-line-number="39"></td>
+										<td id="file-gitswitch-sh-LC39" class="blob-code blob-code-inner js-file-line"><span class="pl-c1">.</span> gitswitch.cfg</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L40" class="blob-num js-line-number" data-line-number="40"></td>
+										<td id="file-gitswitch-sh-LC40" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L41" class="blob-num js-line-number" data-line-number="41"></td>
+										<td id="file-gitswitch-sh-LC41" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Check for new files on Raspberry Pi</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L42" class="blob-num js-line-number" data-line-number="42"></td>
+										<td id="file-gitswitch-sh-LC42" class="blob-code blob-code-inner js-file-line">check=<span class="pl-s"><span class="pl-pds">`</span>ls <span class="pl-smi">$gs_storage</span> <span class="pl-k">|</span> wc -l<span class="pl-pds">`</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L43" class="blob-num js-line-number" data-line-number="43"></td>
+										<td id="file-gitswitch-sh-LC43" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L44" class="blob-num js-line-number" data-line-number="44"></td>
+										<td id="file-gitswitch-sh-LC44" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span> [[ <span class="pl-smi">$check</span> <span class="pl-k">-eq</span> 0 ]]<span class="pl-k">;</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L45" class="blob-num js-line-number" data-line-number="45"></td>
+										<td id="file-gitswitch-sh-LC45" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">then</span> <span class="pl-c1">exit</span> 0</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L46" class="blob-num js-line-number" data-line-number="46"></td>
+										<td id="file-gitswitch-sh-LC46" class="blob-code blob-code-inner js-file-line"><span class="pl-k">fi</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L47" class="blob-num js-line-number" data-line-number="47"></td>
+										<td id="file-gitswitch-sh-LC47" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L48" class="blob-num js-line-number" data-line-number="48"></td>
+										<td id="file-gitswitch-sh-LC48" class="blob-code blob-code-inner js-file-line">files=<span class="pl-s"><span class="pl-pds">`</span>ls <span class="pl-smi">$gs_storage</span><span class="pl-pds">`</span></span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L49" class="blob-num js-line-number" data-line-number="49"></td>
+										<td id="file-gitswitch-sh-LC49" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L50" class="blob-num js-line-number" data-line-number="50"></td>
+										<td id="file-gitswitch-sh-LC50" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Grant rights for executing of delivered scripts</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L51" class="blob-num js-line-number" data-line-number="51"></td>
+										<td id="file-gitswitch-sh-LC51" class="blob-code blob-code-inner js-file-line"><span class="pl-k">for</span> <span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-smi">$files</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L52" class="blob-num js-line-number" data-line-number="52"></td>
+										<td id="file-gitswitch-sh-LC52" class="blob-code blob-code-inner js-file-line"><span class="pl-k">do</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L53" class="blob-num js-line-number" data-line-number="53"></td>
+										<td id="file-gitswitch-sh-LC53" class="blob-code blob-code-inner js-file-line">    chmod +x <span class="pl-smi">$gs_storage</span>/<span class="pl-smi">$i</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L54" class="blob-num js-line-number" data-line-number="54"></td>
+										<td id="file-gitswitch-sh-LC54" class="blob-code blob-code-inner js-file-line"><span class="pl-k">done</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L55" class="blob-num js-line-number" data-line-number="55"></td>
+										<td id="file-gitswitch-sh-LC55" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L56" class="blob-num js-line-number" data-line-number="56"></td>
+										<td id="file-gitswitch-sh-LC56" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Run all delivered scripts</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L57" class="blob-num js-line-number" data-line-number="57"></td>
+										<td id="file-gitswitch-sh-LC57" class="blob-code blob-code-inner js-file-line"><span class="pl-k">for</span> <span class="pl-smi">i</span> <span class="pl-k">in</span> <span class="pl-smi">$files</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L58" class="blob-num js-line-number" data-line-number="58"></td>
+										<td id="file-gitswitch-sh-LC58" class="blob-code blob-code-inner js-file-line"><span class="pl-k">do</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L59" class="blob-num js-line-number" data-line-number="59"></td>
+										<td id="file-gitswitch-sh-LC59" class="blob-code blob-code-inner js-file-line">    <span class="pl-smi">$gs_storage</span>/<span class="pl-smi">$i</span> <span class="pl-k">&gt;</span> /dev/null <span class="pl-k">2&gt;&amp;1</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L60" class="blob-num js-line-number" data-line-number="60"></td>
+										<td id="file-gitswitch-sh-LC60" class="blob-code blob-code-inner js-file-line"><span class="pl-k">done</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L61" class="blob-num js-line-number" data-line-number="61"></td>
+										<td id="file-gitswitch-sh-LC61" class="blob-code blob-code-inner js-file-line">
+										</td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L62" class="blob-num js-line-number" data-line-number="62"></td>
+										<td id="file-gitswitch-sh-LC62" class="blob-code blob-code-inner js-file-line"><span class="pl-c"><span class="pl-c">#</span> Remove all scripts that were already executed</span></td>
+									</tr>
+									<tr>
+										<td id="file-gitswitch-sh-L63" class="blob-num js-line-number" data-line-number="63"></td>
+										<td id="file-gitswitch-sh-LC63" class="blob-code blob-code-inner js-file-line">rm <span class="pl-smi">$gs_storage</span>/<span class="pl-k">*</span></td>
+									</tr>
+								</tbody></table>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="gist-meta">
+					<a href="https://gist.github.com/Robbatron/c4d59c4faa53181c83688477a31bb778/raw/036b8b9dc2b83024779835bc5c27f1fc4e9130ce/gitswitch.sh" style="float:right">view raw</a>
+					<a href="https://gist.github.com/Robbatron/c4d59c4faa53181c83688477a31bb778#file-gitswitch-sh">gitswitch.sh</a>
+					hosted with ❤ by <a href="https://github.com">GitHub</a>
+				</div>
+			</div>
+		</div>
+		<p></p>
+		<h2>Run the above script when a file is&nbsp;put into Dropbox</h2>
+		<ul>
+			<li>my first thought was to write a cron job to do this work but I later opted to use OS X’s built-in Automator</li>
+			<li>I set up automator to run the script when changes were made to my Dropbox folder, as shown below</li>
+			<li>I could achieve this easily because Dropbox was already integrated into my file system</li>
+		</ul>
+		<p><a href="http://robbiedelfs.codes/wp-content/uploads/2015/07/gitswitchautomator.png"><img class="aligncenter wp-image-651 size-full" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/gitswitchautomator.png" width="999" height="722" srcset="http://robbiedelfs.codes/wp-content/uploads/2015/07/gitswitchautomator.png 999w, http://robbiedelfs.codes/wp-content/uploads/2015/07/gitswitchautomator-300x217.png 300w, http://robbiedelfs.codes/wp-content/uploads/2015/07/gitswitchautomator-768x555.png 768w, http://robbiedelfs.codes/wp-content/uploads/2015/07/gitswitchautomator-500x361.png 500w" sizes="(max-width: 999px) 100vw, 999px"></a></p>
+		<p>&nbsp;</p>
+		<h4>Aaaand there it is! Here is a full video with the Git Switch in action…</h4>
+		<div style="width: 440px;" class="wp-video"><!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
+		<span class="mejs-offscreen">Video Player</span><div id="mep_0" class="mejs-container svg wp-video-shortcode mejs-video" tabindex="0" role="application" aria-label="Video Player" style="width: 440px; height: 782px;"><div class="mejs-inner"><div class="mejs-mediaelement"><video class="wp-video-shortcode" id="video-378-1" width="440" height="782" preload="metadata" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/gitpushswitch.mp4?_=1" style="width: 100%; height: 100%;"><source type="video/mp4" src="http://robbiedelfs.codes/wp-content/uploads/2015/07/gitpushswitch.mp4?_=1"><a href="http://robbiedelfs.codes/wp-content/uploads/2015/07/gitpushswitch.mp4">http://robbiedelfs.codes/wp-content/uploads/2015/07/gitpushswitch.mp4</a></video></div><div class="mejs-layers"><div class="mejs-poster mejs-layer" style="display: none; width: 100%; height: 100%;"></div><div class="mejs-overlay mejs-layer" style="width: 100%; height: 100%; display: none;"><div class="mejs-overlay-loading"><span></span></div></div><div class="mejs-overlay mejs-layer" style="display: none; width: 100%; height: 100%;"><div class="mejs-overlay-error"></div></div><div class="mejs-overlay mejs-layer mejs-overlay-play" style="width: 100%; height: 100%;"><div class="mejs-overlay-button"></div></div></div><div class="mejs-controls"><div class="mejs-button mejs-playpause-button mejs-play"><button type="button" aria-controls="mep_0" title="Play" aria-label="Play"></button></div><div class="mejs-time mejs-currenttime-container" role="timer" aria-live="off"><span class="mejs-currenttime">00:00</span></div><div class="mejs-time-rail" style="width: 294px;"><span class="mejs-time-total mejs-time-slider" style="width: 284px;" aria-label="Time Slider" aria-valuemin="0" aria-valuemax="NaN" aria-valuenow="0" aria-valuetext="00:00" role="slider" tabindex="0"><span class="mejs-time-buffering" style="display: none;"></span><span class="mejs-time-loaded" style="width: 7.52738px;"></span><span class="mejs-time-current" style="width: 0px;"></span><span class="mejs-time-handle" style="left: -5px;"></span><span class="mejs-time-float"><span class="mejs-time-float-current">00:00</span><span class="mejs-time-float-corner"></span></span></span></div><div class="mejs-time mejs-duration-container"><span class="mejs-duration">00:53</span></div><div class="mejs-button mejs-volume-button mejs-mute"><button type="button" aria-controls="mep_0" title="Mute" aria-label="Mute"></button><a href="javascript:void(0);" class="mejs-volume-slider" aria-label="Volume Slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80" aria-valuetext="80%" role="slider" tabindex="0" style="display: none;"><span class="mejs-offscreen">Use Up/Down Arrow keys to increase or decrease volume.</span><div class="mejs-volume-total"></div><div class="mejs-volume-current" style="height: 80px; top: 28px;"></div><div class="mejs-volume-handle" style="top: 25px;"></div></a></div><div class="mejs-button mejs-fullscreen-button"><button type="button" aria-controls="mep_0" title="Fullscreen" aria-label="Fullscreen"></button></div></div><div class="mejs-clear"></div></div></div></div>
+		<h4></h4>
+		
+		
+		<footer class="entry-meta tags">
+			<a href="http://robbiedelfs.codes/tag/bash/" rel="tag">bash</a> <a href="http://robbiedelfs.codes/tag/dropbox/" rel="tag">dropbox</a> <a href="http://robbiedelfs.codes/tag/git/" rel="tag">git</a> <a href="http://robbiedelfs.codes/tag/ifttt/" rel="tag">ifttt</a> <a href="http://robbiedelfs.codes/tag/php/" rel="tag">php</a> <a href="http://robbiedelfs.codes/tag/raspberry-pi/" rel="tag">raspberry pi</a>												</footer>
+		</div>
+		
+		
+	</article>
