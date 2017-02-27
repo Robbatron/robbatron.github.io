@@ -43,15 +43,15 @@ a:hover, a:focus {
 }
 
 a:hover {
-    color: #5BCF80
+    color: #5BCF80;
 }
 
 iframe {
-    border: none
+    border: none;
 }
 
 ul {
-    list-style: square
+    list-style: square;
 }
 
 img {
@@ -4433,7 +4433,7 @@ a.more-link:hover {
 .portfolio-nav a:hover {
     color: #fff;
     border-color: transparent;
-    background-color: #8ACB82;
+    background-color: #2a6496;
 }
 
 .portfolio-nav a:before {
