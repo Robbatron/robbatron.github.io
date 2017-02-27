@@ -5,8 +5,6 @@
 	Author: pixelwars
 */
 
-
-
 /* global variables */
 var classicLayout = false;
 var portfolioKeyword;
@@ -236,57 +234,6 @@ var portfolioKeyword;
 				// });
 			}
 		}
-		// ------------------------------
-
-
-
-
-		// ------------------------------
-		/* jQuery Ajax Mail Send Script */
-		// var contactForm = $( '#contact-form' );
-		// var $alert = $('.site-alert');
-		// var $submit = contactForm.find('.submit');
-
-		// contactForm.submit(function()
-		// {
-		// 	if (contactForm.valid())
-		// 	{
-		// 		NProgress.start();
-		// 		$submit.addClass("active loading");
-		// 		var formValues = contactForm.serialize();
-
-		// 		$.post(contactForm.attr('action'), formValues, function(data)
-		// 		{
-		// 			if ( data == 'success' ) {
-		// 				contactForm.clearForm();
-		// 			}
-		// 			else {
-		// 				$alert.addClass('error');
-		// 			}
-		// 			NProgress.done();
-		// 			$alert.show();
-		// 			setTimeout(function() { $alert.hide(); },6000)
-		// 		});
-		// 	}
-		// 	return false
-		// });
-
-		// $.fn.clearForm = function() {
-		//   return this.each(function() {
-		//     var type = this.type, tag = this.tagName.toLowerCase();
-		//     if (tag == 'form')
-		//       return $(':input',this).clearForm();
-		//     if (type == 'text' || type == 'password' || tag == 'textarea')
-		//       this.value = '';
-		//     else if (type == 'checkbox' || type == 'radio')
-		//       this.checked = false;
-		//     else if (tag == 'select')
-		//       this.selectedIndex = -1;
-		//   });
-		// };
-		// ------------------------------
-
-
 
 		// ------------------------------
 		/* SOCIAL FEED WIDGET */
