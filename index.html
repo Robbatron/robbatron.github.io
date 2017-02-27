@@ -545,14 +545,39 @@
                                 <h2><i>If you wanna reach me</i></h2>
                             </div>
                             <div class="contact-form">
-                                <form id="contact-form" method="post" action="js/send-mail.php"><input type="hidden" id="sender_domain" name="sender_domain" value="server@robbiedelfs.codes"><input type="hidden" id="subject" name="subject" value="Contact form message from website"></p>
+                                <form id="contact-form" action="http://formspree.io/robbie.delfs@gmail.com">
+                                    <p>
+                                        <label for="name">NAME</label>
+                                        <input type="text" id="name" name="name" class="required">
+                                    </p>
+                                    <p>
+                                        <label for="email">EMAIL</label>
+                                        <input type="text" id="email" name="email" class="required email">
+                                    </p>
+                                    <p class="antispam" style="display: none;">
+                                        <label for="url">Leave this empty</label>
+                                        <input type="text" id="url" type="hidden" name="url">
+                                    </p>
+                                    <p>
+                                        <label for="message">MESSAGE</label>
+                                        <textarea id="message" name="message" class="required"></textarea>
+                                    </p>
+                                    <p>
+                                        <input type="submit" class="submit button primary" value="SEND">
+                                    </p>
+                                </form>
+                            </div>
+                            <!-- <div class="contact-form">
+                                <form id="contact-form" method="post" action="js/send-mail.php">
+                                <input type="hidden" id="sender_domain" name="sender_domain" value="server@robbiedelfs.codes">
+                                <input type="hidden" id="subject" name="subject" value="Contact form message from website"></p>
                                     <p><label for="name">NAME</label><input type="text" id="name" name="name" class="required"></p>
                                     <p><label for="email">EMAIL</label><input type="text" id="email" name="email" class="required email"></p>
                                     <p class="antispam"><label for="url">Leave this empty</label><input type="text" id="url" name="url"></p>
                                     <p><label for="message">MESSAGE</label><textarea id="message" name="message" class="required"></textarea></p>
                                     <p><input type="submit" class="submit button primary" value="SEND"></p>
                                 </form>
-                            </div>
+                            </div> -->
                     </div>
                 </div>
             </section>

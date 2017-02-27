@@ -1,12 +1,12 @@
 <?php
 
 
-	if ( ! defined( ABSPATH ) )
-	{
-		$pagePath = explode( '/wp-content/', dirname(__FILE__) );
+	// if ( ! defined( ABSPATH ) )
+	// {
+	// 	$pagePath = explode( '/wp-content/', dirname(__FILE__) );
 		
-		include_once( str_replace( 'wp-content/', '', $pagePath[0] . '/wp-load.php' ) );
-	}
+	// 	include_once( str_replace( 'wp-content/', '', $pagePath[0] . '/wp-load.php' ) );
+	// }
 
 
 /* ============================================================================================================================================= */
