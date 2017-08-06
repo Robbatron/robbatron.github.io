@@ -4,8 +4,8 @@ var portfolioKeyword;
 
 (function ($) {
 	"use strict";
-
-	$(function () {
+	
+	document.addEventListener("DOMContentLoaded", function () {
 
 		showLoader();
 
@@ -16,19 +16,19 @@ var portfolioKeyword;
 			textInterval: 3000
 		});
 
-		$('.search-toggle').on("click", function () {
-			$('html').toggleClass('is-search-toggled-on');
-			$(".search-box input").trigger("focus");
-		});
+		// $('.search-toggle').on("click", function () {
+		// 	$('html').toggleClass('is-search-toggled-on');
+		// 	$(".search-box input").trigger("focus");
+		// });
 
-		$('.menu-toggle').on("click", function () {
-			$('html').toggleClass('is-menu-toggled-on');
-		});
+		// $('.menu-toggle').on("click", function () {
+		// 	$('html').toggleClass('is-menu-toggled-on');
+		// });
 
-		if ($('html').hasClass('one-page-layout')) {
+		// if ($('html').hasClass('one-page-layout')) {
 
-			portfolioKeyword = $('section.portfolio').attr('id');
-			var detailUrl = giveDetailUrl();
+			// portfolioKeyword = $('section.portfolio').attr('id');
+			// var detailUrl = giveDetailUrl();
 
 			classicLayout = $('html').attr('data-classic-layout') === 'true';
 			classicLayout = classicLayout || ($('html').attr('data-mobile-classic-layout') === 'true' && ($(window).width() < 1025));
@@ -67,7 +67,7 @@ var portfolioKeyword;
 					}
 				}
 			});
-		}
+		// }
 
 		// SETUP
 		setup();
@@ -111,9 +111,6 @@ var portfolioKeyword;
 				$(this).validate();
 			});
 		}
-
-		// FILL SKILL BARS
-		fillBars();
 		
 		// GOOGLE MAP
 		/*
@@ -155,47 +152,29 @@ var portfolioKeyword;
 				// Get the HTML DOM element that will contain your map
 				// We are using a div with id="map" seen below in the <body>
 				var mapElement = document.getElementById('map-canvas');
-				//var mapElement = $('#map-canvas');
-				//var myLatlng = new google.maps.LatLng(mapElement.data("latitude"),mapElement.data("longitude"));
 
 				// Create the Google Map using our element and options defined above
 				var map = new google.maps.Map(mapElement, mapOptions);
 
 				//CREATE A CUSTOM PIN ICON
-				// var marker_image = marker_image;
-				// var pinIcon = new google.maps.MarkerImage(marker_image,null,null, null,new google.maps.Size(120, 90));
+				var marker_image = marker_image;
+				var pinIcon = new google.maps.MarkerImage(marker_image,null,null, null,new google.maps.Size(120, 90));
 
-				// var marker = new google.maps.Marker({
-				//    position: new google.maps.LatLng(latitude,longitude),
-				//   map: map,
-				//   icon: pinIcon,
-				//   title: 'Hey, I am here'
-				// });
+				var marker = new google.maps.Marker({
+				   position: new google.maps.LatLng(latitude,longitude),
+				  map: map,
+				  icon: pinIcon,
+				  title: 'Hey, I am here'
+				});
 			}
 		}
-
-		/* SOCIAL FEED WIDGET */
-		var socialFeed = $('.social-feed');
-		if (socialFeed.length) {
-			socialFeed.each(function () {
-				$(this).socialstream({
-					socialnetwork: $(this).data("social-network"),
-					limit: $(this).data("limit"),
-					username: $(this).data("username")
-				})
-			});
-		}
-
-
 
 	});
 	// DOCUMENT READY
 
 	// WINDOW ONLOAD
 	window.onload = function () {
-
 		hideLoader();
-
 	};
 
 	// SETUP : plugins
@@ -204,49 +183,46 @@ var portfolioKeyword;
 		// MASONRY
 		setupMasonry();
 
-		// LIGHTBOX
-		setupLightbox();
-
 		// TABS
-		$('.tabs').each(function () {
-			if (!$(this).find('.tab-titles li a.active').length) {
-				$(this).find('.tab-titles li:first-child a').addClass('active');
-				$(this).find('.tab-content > div:first-child').show();
-			} else {
-				$(this).find('.tab-content > div').eq($(this).find('.tab-titles li a.active').parent().index()).show();
-			}
-		});
+		// $('.tabs').each(function () {
+		// 	if (!$(this).find('.tab-titles li a.active').length) {
+		// 		$(this).find('.tab-titles li:first-child a').addClass('active');
+		// 		$(this).find('.tab-content > div:first-child').show();
+		// 	} else {
+		// 		$(this).find('.tab-content > div').eq($(this).find('.tab-titles li a.active').parent().index()).show();
+		// 	}
+		// });
 
-		$('.tabs .tab-titles li a').on("click", function () {
-			if ($(this).hasClass('active')) { return; }
-			$(this).parent().siblings().find('a').removeClass('active');
-			$(this).addClass('active');
-			$(this).parents('.tabs').find('.tab-content > div').hide().eq($(this).parent().index()).show();
-			return false;
-		});
+		// $('.tabs .tab-titles li a').on("click", function () {
+		// 	if ($(this).hasClass('active')) { return; }
+		// 	$(this).parent().siblings().find('a').removeClass('active');
+		// 	$(this).addClass('active');
+		// 	$(this).parents('.tabs').find('.tab-content > div').hide().eq($(this).parent().index()).show();
+		// 	return false;
+		// });
 
 		// TOGGLES
-		var toggleSpeed = 300;
-		$('.toggle h4.active + .toggle-content').show();
+		// var toggleSpeed = 300;
+		// $('.toggle h4.active + .toggle-content').show();
 
-		$('.toggle h4').on("click", function () {
-			if ($(this).hasClass('active')) {
-				$(this).removeClass('active');
-				$(this).next('.toggle-content').stop(true, true).slideUp(toggleSpeed);
-			} else {
+		// $('.toggle h4').on("click", function () {
+		// 	if ($(this).hasClass('active')) {
+		// 		$(this).removeClass('active');
+		// 		$(this).next('.toggle-content').stop(true, true).slideUp(toggleSpeed);
+		// 	} else {
 
-				$(this).addClass('active');
-				$(this).next('.toggle-content').stop(true, true).slideDown(toggleSpeed);
+		// 		$(this).addClass('active');
+		// 		$(this).next('.toggle-content').stop(true, true).slideDown(toggleSpeed);
 
-				//accordion
-				if ($(this).parents('.toggle-group').hasClass('accordion')) {
-					$(this).parent().siblings().find('h4').removeClass('active');
-					$(this).parent().siblings().find('.toggle-content').stop(true, true).slideUp(toggleSpeed);
-				}
+		// 		//accordion
+		// 		if ($(this).parents('.toggle-group').hasClass('accordion')) {
+		// 			$(this).parent().siblings().find('h4').removeClass('active');
+		// 			$(this).parent().siblings().find('.toggle-content').stop(true, true).slideUp(toggleSpeed);
+		// 		}
 
-			}
-			return false;
-		});
+		// 	}
+		// 	return false;
+		// });
 
 		// RESPONSIVE VIDEOS
 		if ($('iframe,video').length) {
@@ -406,15 +382,6 @@ var portfolioKeyword;
 				});
 			});
 		}
-	}
-
-	// FILL PROGRESS BARS
-	function fillBars() {
-		$('.bar').each(function () {
-			var bar = $(this);
-			var percent = bar.attr('data-percent');
-			bar.find('.progress').css('width', percent + '%').html('<span>' + percent + '</span>');
-		});
 	}
 
 	// AJAX PORTFOLIO DETAILS
