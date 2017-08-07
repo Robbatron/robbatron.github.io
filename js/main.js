@@ -225,17 +225,17 @@ var portfolioKeyword;
 		// });
 
 		// RESPONSIVE VIDEOS
-		if ($('iframe,video').length) {
-			$("html").fitVids();
-		}
+		// if ($('iframe,video').length) {
+		// 	$("html").fitVids();
+		// }
 
 		// UNIFORM
-		$("select:not([multiple]), input:checkbox, input:radio, input:file").uniform();
-		var ua = navigator.userAgent.toLowerCase();
-		var isAndroid = ua.indexOf("android") > -1;
-		if (isAndroid) {
-			$('html').addClass('android');
-		}
+		// $("select:not([multiple]), input:checkbox, input:radio, input:file").uniform();
+		// var ua = navigator.userAgent.toLowerCase();
+		// var isAndroid = ua.indexOf("android") > -1;
+		// if (isAndroid) {
+		// 	$('html').addClass('android');
+		// }
 
 
 	}
